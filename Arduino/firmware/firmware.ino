@@ -44,12 +44,13 @@
 
 const uint8_t ledPin = 9;
 
+//use serail debug or not
+#define USE_SERIAL_DEBUG 1
+
 //initialize pixels 9*20
 Neophob_LPD6803 strip = Neophob_LPD6803(NR_OF_PIXELS);
 byte buffer[BUFFER_SIZE];
 
-byte g_errorCounter;
-int j,k;
 
 
 // --------------------------------------------
@@ -66,7 +67,7 @@ void synchronousBlink() {
 // --------------------------------------------
 void showInitImage() {
   for (int i=0; i < strip.numPixels(); i++) {
-    strip.setPixelColor(i, Wheel( i % 96));
+    strip.setPixelColor(i, 0);
   }    
   // Update the strip, to start they are all 'off'
   strip.show();
@@ -77,14 +78,27 @@ void showInitImage() {
 //      setup
 // --------------------------------------------
 void setup() {
+#ifdef USE_SERIAL_DEBUG
+  Serial.begin(115200);
+  Serial.println("Init Strip");
+#endif
+
   //cpu use and SPI clock must be adjusted
   strip.setCPUmax(25);  // start with 50% CPU usage. up this if the strand flickers or is slow  
-  strip.begin(SPI_CLOCK_DIV128);        // Start up the LED counterm 0.125MHz - 8uS
-//  strip.begin(SPI_CLOCK_DIV64);        // Start up the LED counterm 0.25MHz - 4uS
+//  strip.begin(SPI_CLOCK_DIV128);        // Start up the LED counterm 0.125MHz - 8uS
+  strip.begin(SPI_CLOCK_DIV64);        // Start up the LED counterm 0.25MHz - 4uS
 //  strip.begin(SPI_CLOCK_DIV32);        // Start up the LED counterm 0.5MHz - 2uS
 //  strip.begin(SPI_CLOCK_DIV16);        // Start up the LED counterm 1.0MHz - 1uS
+
+#ifdef USE_SERIAL_DEBUG
+  Serial.println("Init Image");
+#endif
   showInitImage();      // display some colors
-  int initialColor[] = { 0xff0000, 0x00ff00, 0x0000ff };
+  
+#ifdef USE_SERIAL_DEBUG
+  Serial.println("Init ColorSet");
+#endif  
+  unsigned long initialColor[3] = { 0xff0000, 0x00ff00, 0x0000ff };
   initColorSet(initialColor);
   
   //we-are-ready indicator
@@ -92,6 +106,9 @@ void setup() {
   synchronousBlink();
   delay(50);
   synchronousBlink();
+#ifdef USE_SERIAL_DEBUG
+  Serial.println("Setup done!");
+#endif  
 }
 
 // --------------------------------------------
@@ -100,6 +117,7 @@ void setup() {
 void loop() {
   generateContent(); 
   applyColorSet();
+  
 }
 
 
