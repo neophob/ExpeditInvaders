@@ -36,7 +36,7 @@
 #include <SPI.h>
 #include <Neophob_LPD6803.h>
 
-#define NR_OF_PIXELS 20
+#define NR_OF_PIXELS 40
 
 //one pixel uses 3 leds
 #define LED_GROUP 3
@@ -73,7 +73,6 @@ void showInitImage() {
   strip.show();
 }
 
-
 // --------------------------------------------
 //      setup
 // --------------------------------------------
@@ -98,8 +97,10 @@ void setup() {
 #ifdef USE_SERIAL_DEBUG
   Serial.println("Init ColorSet");
 #endif  
-  unsigned long initialColor[3] = { 0xff0000, 0x00ff00, 0x0000ff };
+//  unsigned long initialColor[3] = { 0xff0000, 0x00ff00, 0x0000ff }; //RGB
+  unsigned long initialColor[3] = { 0xdc323c, 0xf0cb58, 0x3c825e }; //Rasta
   initColorSet(initialColor);
+  initContent();
   
   //we-are-ready indicator
   pinMode(ledPin, OUTPUT);  

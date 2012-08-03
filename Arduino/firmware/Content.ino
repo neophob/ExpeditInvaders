@@ -1,4 +1,10 @@
+byte bufferRnd[BUFFER_SIZE];
 
+void initContent() {
+  for (int i=0; i < BUFFER_SIZE; i++) {
+    bufferRnd[i] = random(0, 255);
+  }
+}
 
 // --------------------------------------------
 //     do some animation 
@@ -8,7 +14,7 @@ void generateContent() {
 //  delay(1);
 
   for (int i=0; i < BUFFER_SIZE; i++) {
-    buffer[i] = n;
+    buffer[i] = bufferRnd[i]+n;
   }
 
   n++;

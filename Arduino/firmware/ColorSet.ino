@@ -8,34 +8,21 @@ byte boarderCount;
 byte arrayCount;
 
 //----------------------------
-//Color 8bit to 5 bit
+// Color, convert 8bit to 5bit
 //----------------------------
 unsigned int Color(byte r, byte g, byte b) {
-  //Take the lowest 5 bits of each value and append them end to end
   return( ((unsigned int)g >> 3 )<<10 | ((unsigned int)b >> 3)<<5 | (unsigned int)r >> 3);
 }
 
 //----------------------------
 //init color set
 //----------------------------
-void initColorSet(unsigned long col[]) {
-  //TODO works not
-  memcpy(colors, col, nrOfColorsInArray*sizeof(unsigned long));
-#ifdef USE_SERIAL_DEBUG
-  Serial.print("initColorSet src: ");
-  Serial.print(col[2]);
-  Serial.print(", dst: ");
-  Serial.println(colors[2]);
-#endif
- /* 
- colors[0] = 0xff0000;
- colors[1] = 0x00ff00;
- colors[2] = 0x0000ff;
- */  
-  colors[0] = 0xd3517d;
-  colors[1] = 0x15a0bf;
-  colors[2] = 0xffc062;
-
+void initColorSet(unsigned long col[3]) {
+  //copy array.. memcpy? never heard of it...
+  for (byte b=0; b<3; b++) {
+    colors[b] = col[b];
+  }
+  
   arrayCount = nrOfColorsInArray;
   boarderCount = 255 / arrayCount;
 #ifdef USE_SERIAL_DEBUG
@@ -89,7 +76,7 @@ unsigned int calcSmoothColor(unsigned long col1, unsigned long col2, int pos) {
   b+=(b2*oppositeColor)/255;
 
   //change next line
-  return Color(r,g,b);
+  return Color(b,r,g);
 }
 
 //----------------------------
