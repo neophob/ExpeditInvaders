@@ -96,10 +96,16 @@ void applyColorSet() {
     Serial.print(i);
     Serial.print(", set Color: ");
     Serial.println(col, HEX);
-#endif  
+#endif
     strip.setPixelColor(i, col);
-
   }
+  
+  //blank unused modules
+  strip.setPixelColor(0, 0);
+  strip.setPixelColor(13, 0);
+  strip.setPixelColor(14, 0);
+  strip.setPixelColor(15, 0);
+  
   strip.show();    
 }
 

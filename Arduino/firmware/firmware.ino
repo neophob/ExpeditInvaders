@@ -28,7 +28,34 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- * 	
+ * 
+
+The IKEA Expedit shelf with 40 LED Modules looks like this:
+       +----------+----------+----------+----------+
+       |          |          |          |          |
+       |          |          |          |          |
+       |          |          |          |          |       
+       | 40 39 38 | 37 36 35 | 34 33 32 | 31 30 29 |
+       +----------+----------+----------+----------+
+       | 17 18 19 | 20 21 22 | 23 24 25 | 26 27 28 |
+    16 |          |          |          |          |
+    15 |          |          |          |          |       
+    14 |          |          |          |          |
+       +----------+----------+----------+----------+
+       | 13 12 11 | 10 09 08 | 07 06 05 | 04 03 02 |
+       |          |          |          |          |
+       |          |          |          |          | 01       
+       |          |          |          |          |
+       +----------+----------+----------+----------+ 
+       |          |          |          |          |
+       |          |          |          |          |
+       |          |          |          |          |       
+       |          |          |          |          |
+       +----------+----------+----------+----------+
+ Module 1,14,15,16 will be blank
+ 
+ If you need some Modules and want to support my work, check out http://pixelinvaders.ch/
+ 
  */
 
 //the lpd6803 library needs the timer1 library
@@ -40,7 +67,7 @@
 
 //one pixel uses 3 leds
 #define LED_GROUP 3
-#define BUFFER_SIZE 7  //NR_OF_PIXELS/BUFFER_SIZE
+#define BUFFER_SIZE 14  //NR_OF_PIXELS/BUFFER_SIZE
 
 const uint8_t ledPin = 9;
 
@@ -116,9 +143,10 @@ void setup() {
 //      main loop
 // --------------------------------------------
 void loop() {
+  //create 8bit buffer  
   generateContent(); 
+  //convert it to colorized 15bit buffer and blank some pixels
   applyColorSet();
-  
 }
 
 
