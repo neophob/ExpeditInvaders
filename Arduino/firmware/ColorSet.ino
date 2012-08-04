@@ -84,8 +84,8 @@ unsigned int calcSmoothColor(unsigned long col1, unsigned long col2, int pos) {
 //----------------------------
 void applyColorSet() {
   byte srcOfs = -1;
-
-  for (int i=0; i < strip.numPixels(); i++) {
+    
+  for (int i=0; i < strip.numPixels()-1; i++) {
     if (i%LED_GROUP==0) {
       srcOfs++;
     }
@@ -97,7 +97,8 @@ void applyColorSet() {
     Serial.print(", set Color: ");
     Serial.println(col, HEX);
 #endif
-    strip.setPixelColor(i, col);
+    //the first pixel is unused
+    strip.setPixelColor(i+1, col);
   }
   
   //blank unused modules

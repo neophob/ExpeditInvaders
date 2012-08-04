@@ -45,17 +45,22 @@ The IKEA Expedit shelf with 40 LED Modules looks like this:
        | 13 12 11 | 10 09 08 | 07 06 05 | 04 03 02 |
        |          |          |          |          |
        |          |          |          |          | 01       
-       |          |          |          |          |
-       +----------+----------+----------+----------+ 
-       |          |          |          |          |
-       |          |          |          |          |
-       |          |          |          |          |       
+       |          |          |          |          | |\
+       +----------+----------+----------+----------+ | \
+       |          |          |          |          | |  +12V PSU
+       |          |          |          |          | |
+       |          |          |          |          | Arduino      
        |          |          |          |          |
        +----------+----------+----------+----------+
  Module 1,14,15,16 will be blank
  
  If you need some Modules and want to support my work, check out http://pixelinvaders.ch/
  
+ TODO:
+ -more modes
+ -switch display
+ -switch colorset
+ -save setting to eeprom after some time...
  */
 
 //the lpd6803 library needs the timer1 library
