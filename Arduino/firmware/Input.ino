@@ -1,4 +1,4 @@
-// readCapacitivePin
+// readCapacitivePin (src: http://arduino.cc/playground/Code/CapacitiveSensor)
 //  Input: Arduino pin number
 //  Output: A number, from 0 to 17 expressing
 //  how much capacitance is on the pin

@@ -97,6 +97,7 @@ void applyColorSet() {
     Serial.print(", set Color: ");
     Serial.println(col, HEX);
 #endif
+
     //the first pixel is unused
     strip.setPixelColor(i+1, col);
   }

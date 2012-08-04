@@ -6,19 +6,39 @@ void initContent() {
   }
 }
 
+byte n;
+byte mode = 0;
+
 // --------------------------------------------
 //     do some animation 
 // --------------------------------------------
-byte n;
 void generateContent() {
-//  delay(1);
+  delay(50);
 
   for (int i=0; i < BUFFER_SIZE; i++) {
-    buffer[i] = bufferRnd[i]+n;
+    switch (mode) {
+    case 0: //random color animation
+      buffer[i] = bufferRnd[i]+n;
+      break;     
+    case 1: //ordered color animation
+      buffer[i] = n+i;
+      break;     
+    case 2: //solid color animation
+      buffer[i] = n;
+      break;     
+    }
+
   }
 
   n++;
+  
+  //convert it to colorized 15bit buffer and blank some pixels
+  applyColorSet();
+
 
 }
+
+
+
 
 

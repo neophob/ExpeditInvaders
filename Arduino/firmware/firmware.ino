@@ -77,7 +77,7 @@ The IKEA Expedit shelf with 40 LED Modules looks like this:
 const uint8_t ledPin = 9;
 
 //use serail debug or not
-#define USE_SERIAL_DEBUG 1
+//#define USE_SERIAL_DEBUG 1
 
 //initialize pixels 9*20
 Neophob_LPD6803 strip = Neophob_LPD6803(NR_OF_PIXELS);
@@ -97,7 +97,7 @@ void synchronousBlink() {
 // --------------------------------------------
 //     create initial image
 // --------------------------------------------
-void showInitImage() {
+void clearModuleBuffer() {
   for (int i=0; i < strip.numPixels(); i++) {
     strip.setPixelColor(i, 0);
   }    
@@ -115,16 +115,16 @@ void setup() {
 #endif
 
   //cpu use and SPI clock must be adjusted
-  strip.setCPUmax(25);  // start with 50% CPU usage. up this if the strand flickers or is slow  
+  strip.setCPUmax(64);  // start with 50% CPU usage. up this if the strand flickers or is slow  
 //  strip.begin(SPI_CLOCK_DIV128);        // Start up the LED counterm 0.125MHz - 8uS
-  strip.begin(SPI_CLOCK_DIV64);        // Start up the LED counterm 0.25MHz - 4uS
+//  strip.begin(SPI_CLOCK_DIV64);        // Start up the LED counterm 0.25MHz - 4uS
 //  strip.begin(SPI_CLOCK_DIV32);        // Start up the LED counterm 0.5MHz - 2uS
-//  strip.begin(SPI_CLOCK_DIV16);        // Start up the LED counterm 1.0MHz - 1uS
+  strip.begin(SPI_CLOCK_DIV16);        // Start up the LED counterm 1.0MHz - 1uS
 
 #ifdef USE_SERIAL_DEBUG
-  Serial.println("Init Image");
+  Serial.println("Clear Modules");
 #endif
-  showInitImage();      // display some colors
+  clearModuleBuffer();      // display some colors
   
 #ifdef USE_SERIAL_DEBUG
   Serial.println("Init ColorSet");
@@ -139,6 +139,7 @@ void setup() {
   synchronousBlink();
   delay(50);
   synchronousBlink();
+  
 #ifdef USE_SERIAL_DEBUG
   Serial.println("Setup done!");
 #endif  
@@ -150,8 +151,16 @@ void setup() {
 void loop() {
   //create 8bit buffer  
   generateContent(); 
-  //convert it to colorized 15bit buffer and blank some pixels
-  applyColorSet();
+
+/*unsigned int c =  Color(i,i,i);
+  i++;
+  if (i>255) i=0;
+  for (int i=0; i < strip.numPixels(); i++) {
+        strip.setPixelColor(i, c);
+  }
+  strip.show();
+  delay(20);
+*/
 }
 
 
