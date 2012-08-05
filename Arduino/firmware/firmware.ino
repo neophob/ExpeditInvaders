@@ -77,7 +77,7 @@ The IKEA Expedit shelf with 40 LED Modules looks like this:
 const uint8_t ledPin = 9;
 
 //use serail debug or not
-//#define USE_SERIAL_DEBUG 1
+#define USE_SERIAL_DEBUG 1
 
 //initialize pixels 9*20
 Neophob_LPD6803 strip = Neophob_LPD6803(NR_OF_PIXELS);
@@ -122,7 +122,7 @@ void setup() {
   strip.begin(SPI_CLOCK_DIV16);        // Start up the LED counterm 1.0MHz - 1uS
 
 #ifdef USE_SERIAL_DEBUG
-  Serial.println("Clear Modules");
+  Serial.println("Clear Module Buffer");
 #endif
   clearModuleBuffer();      // display some colors
   
@@ -130,7 +130,10 @@ void setup() {
   Serial.println("Init ColorSet");
 #endif  
 //  unsigned long initialColor[3] = { 0xff0000, 0x00ff00, 0x0000ff }; //RGB
-  unsigned long initialColor[3] = { 0xdc323c, 0xf0cb58, 0x3c825e }; //Rasta
+//  unsigned long initialColor[3] = { 0xdc323c, 0xf0cb58, 0x3c825e }; //Rasta
+  unsigned long initialColor[3] = { 0xd3517d, 0x15a0bf, 0xffc062 }; //CGA  
+//  unsigned long initialColor[3] = { 0x008c53, 0x2e00e4, 0xdfea00 }; //Brazil  
+  
   initColorSet(initialColor);
   initContent();
   

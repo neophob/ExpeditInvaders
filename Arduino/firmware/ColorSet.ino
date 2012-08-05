@@ -48,16 +48,7 @@ unsigned int getSmoothColor(byte pos) {
 //----------------------------
 //calc smooth color
 //----------------------------
-unsigned int calcSmoothColor(unsigned long col1, unsigned long col2, int pos) {
-#ifdef USE_SERIAL_DEBUG
-  Serial.print("calcSmoothColor col1: ");
-  Serial.print(col1, HEX);
-  Serial.print(", col2: ");
-  Serial.print(col2, HEX);
-  Serial.print(", pos: ");
-  Serial.println(pos);
-#endif  
-
+unsigned int calcSmoothColor(unsigned long col1, unsigned long col2, byte pos) {
   unsigned int b= col1&255;
   unsigned int g=(col1>>8)&255;
   unsigned int r=(col1>>16)&255;
@@ -65,15 +56,21 @@ unsigned int calcSmoothColor(unsigned long col1, unsigned long col2, int pos) {
   unsigned int g2=(col2>>8)&255;
   unsigned int r2=(col2>>16)&255;
 
-  unsigned int mul=pos*arrayCount;
+  unsigned int mul=pos*arrayCount;        //extend pos to 255, so pos is between 0..255
   unsigned int oppositeColor = 255-mul;
+  
+  r=(r*mul + r2*oppositeColor) >> 8;
+  g=(g*mul + g2*oppositeColor) >> 8;
+  b=(b*mul + b2*oppositeColor) >> 8;
 
-  r=(r*mul)/255;
-  g=(g*mul)/255;
-  b=(b*mul)/255;
-  r+=(r2*oppositeColor)/255;
-  g+=(g2*oppositeColor)/255;
-  b+=(b2*oppositeColor)/255;
+#ifdef USE_SERIAL_DEBUG
+  Serial.print("r: ");
+  Serial.print(r);
+  Serial.print(", g: ");
+  Serial.print(g);
+  Serial.print(", b: ");
+  Serial.println(b);
+#endif  
 
   //change next line
   return Color(b,r,g);
@@ -89,14 +86,12 @@ void applyColorSet() {
     if (i%LED_GROUP==0) {
       srcOfs++;
     }
+    
+    //make sure the blind pixels are ignored
+    if (srcOfs==5) {
+      srcOfs++;
+    }
     unsigned int col = getSmoothColor(buffer[srcOfs]);    
-
-#ifdef USE_SERIAL_DEBUG
-    Serial.print("Update Pixel ");
-    Serial.print(i);
-    Serial.print(", set Color: ");
-    Serial.println(col, HEX);
-#endif
 
     //the first pixel is unused
     strip.setPixelColor(i+1, col);

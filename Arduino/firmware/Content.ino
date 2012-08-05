@@ -7,13 +7,13 @@ void initContent() {
 }
 
 byte n;
-byte mode = 0;
+byte mode = 3;
 
 // --------------------------------------------
 //     do some animation 
 // --------------------------------------------
 void generateContent() {
-  delay(50);
+//  delay(20);
 
   for (int i=0; i < BUFFER_SIZE; i++) {
     switch (mode) {
@@ -26,10 +26,12 @@ void generateContent() {
     case 2: //solid color animation
       buffer[i] = n;
       break;     
+    case 3: //checkboard
+      buffer[i] = n+(128*(i%2));
+      break;     
     }
 
   }
-
   n++;
   
   //convert it to colorized 15bit buffer and blank some pixels
