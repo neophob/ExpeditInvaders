@@ -63,14 +63,14 @@ unsigned int calcSmoothColor(unsigned long col1, unsigned long col2, byte pos) {
   g=(g*mul + g2*oppositeColor) >> 8;
   b=(b*mul + b2*oppositeColor) >> 8;
 
-#ifdef USE_SERIAL_DEBUG
+/*#ifdef USE_SERIAL_DEBUG
   Serial.print("r: ");
   Serial.print(r);
   Serial.print(", g: ");
   Serial.print(g);
   Serial.print(", b: ");
   Serial.println(b);
-#endif  
+#endif  */
 
   //change next line
   return Color(b,r,g);

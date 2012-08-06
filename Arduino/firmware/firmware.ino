@@ -30,6 +30,8 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  * 
 
+Module Placement
+----------------
 The IKEA Expedit shelf with 40 LED Modules looks like this:
        +----------+----------+----------+----------+
        |          |          |          |          |
@@ -56,6 +58,7 @@ The IKEA Expedit shelf with 40 LED Modules looks like this:
  
  If you need some Modules and want to support my work, check out http://pixelinvaders.ch/
  
+ 
  TODO:
  -more modes
  -switch display
@@ -67,6 +70,7 @@ The IKEA Expedit shelf with 40 LED Modules looks like this:
 #include <TimerOne.h>
 #include <SPI.h>
 #include <Neophob_LPD6803.h>
+#include <PS2Keyboard.h>
 
 #define NR_OF_PIXELS 40
 
@@ -83,6 +87,9 @@ const uint8_t ledPin = 9;
 Neophob_LPD6803 strip = Neophob_LPD6803(NR_OF_PIXELS);
 byte buffer[BUFFER_SIZE];
 
+PS2Keyboard keyboard;
+const int DataPin = 3;
+const int IRQpin =  2;
 
 
 // --------------------------------------------
@@ -142,7 +149,12 @@ void setup() {
   synchronousBlink();
   delay(50);
   synchronousBlink();
-  
+
+#ifdef USE_SERIAL_DEBUG
+  Serial.println("Init keyboard!");
+#endif    
+  keyboard.begin(DataPin, IRQpin);
+
 #ifdef USE_SERIAL_DEBUG
   Serial.println("Setup done!");
 #endif  
@@ -155,6 +167,7 @@ void loop() {
   //create 8bit buffer  
   generateContent(); 
 
+  handleKeyboard();
 /*unsigned int c =  Color(i,i,i);
   i++;
   if (i>255) i=0;

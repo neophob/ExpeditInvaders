@@ -1,106 +1,103 @@
-// readCapacitivePin (src: http://arduino.cc/playground/Code/CapacitiveSensor)
-//  Input: Arduino pin number
-//  Output: A number, from 0 to 17 expressing
-//  how much capacitance is on the pin
-//  When you touch the pin, or whatever you have
-//  attached to it, the number will get higher
-uint8_t readCapacitivePin(int pinToMeasure){
-  // Variables used to translate from Arduino to AVR pin naming
-  volatile uint8_t* port;
-  volatile uint8_t* ddr;
-  volatile uint8_t* pin;
-  // Here we translate the input pin number from
-  //  Arduino pin number to the AVR PORT, PIN, DDR,
-  //  and which bit of those registers we care about.
-  byte bitmask;
-  if ((pinToMeasure >= 0) && (pinToMeasure <= 7)){
-    port = &PORTD;
-    ddr = &DDRD;
-    bitmask = 1 << pinToMeasure;
-    pin = &PIND;
-  }
-  if ((pinToMeasure > 7) && (pinToMeasure <= 13)){
-    port = &PORTB;
-    ddr = &DDRB;
-    bitmask = 1 << (pinToMeasure - 8);
-    pin = &PINB;
-  }
-  if ((pinToMeasure > 13) && (pinToMeasure <= 19)){
-    port = &PORTC;
-    ddr = &DDRC;
-    bitmask = 1 << (pinToMeasure - 13);
-    pin = &PINC;
-  }
-  // Discharge the pin first by setting it low and output
-  *port &= ~(bitmask);
-  *ddr  |= bitmask;
-  delay(1);
-  // Make the pin an input with the internal pull-up on
-  *ddr &= ~(bitmask);
-  *port |= bitmask;
-  // Now see how long the pin to get pulled up
-  int cycles = 17;
-  for(int i = 0; i < 16; i++){
-    if (*pin & bitmask){
-      cycles = i;
-      break;
+/*  PS2Keyboard library example
+  
+  PS2Keyboard now requries both pins specified for begin()
+
+  keyboard.begin(data_pin, irq_pin);
+  
+  Valid irq pins:
+     Arduino:      2, 3
+     Arduino Mega: 2, 3, 18, 19, 20, 21
+     Teensy 1.0:   0, 1, 2, 3, 4, 6, 7, 16
+     Teensy 2.0:   5, 6, 7, 8
+     Teensy++ 1.0: 0, 1, 2, 3, 18, 19, 36, 37
+     Teensy++ 2.0: 0, 1, 2, 3, 18, 19, 36, 37
+     Sanguino:     2, 10, 11
+  
+  for more information you can read the original wiki in arduino.cc
+  at http://www.arduino.cc/playground/Main/PS2Keyboard
+  or http://www.pjrc.com/teensy/td_libs_PS2Keyboard.html
+  
+  Like the Original library and example this is under LGPL license.
+  
+  Modified by Cuninganreset@gmail.com on 2010-03-22
+  Modified by Paul Stoffregen <paul@pjrc.com> June 2010
+*/
+   
+
+
+void handleKeyboard() {
+  if (keyboard.available()) {
+    
+    // read the next key
+    char c = keyboard.read();
+    
+    if (c == PS2_UPARROW) {
+      mode++;
+      if (mode > MAX_MODE) {
+         mode = 0; 
+      }
+#ifdef USE_SERIAL_DEBUG      
+      Serial.print("[Up], mode: ");
+      Serial.println(mode);
+#endif
     }
+    
+    if (c == PS2_RIGHTARROW) {
+      colorMode++;
+      if (colorMode > MAX_COLOR_MODE) {
+        colorMode = 0;
+      }
+      
+      unsigned long initialColor[3] = { 0xff0000, 0x00ff00, 0x0000ff }; //RGB
+      switch (colorMode) {
+         case 1:
+               initialColor[0] = 0xdc323c;  //Rasta
+               initialColor[1] = 0xf0cb58;
+               initialColor[2] = 0x3c825e;
+               break; 
+         case 2:
+               initialColor[0] = 0xd3517d;  //CGA
+               initialColor[1] = 0x15a0bf;
+               initialColor[2] = 0xffc062;
+               break; 
+         case 3:
+               initialColor[0] = 0x008c53;  //Brazil
+               initialColor[1] = 0x2e00e4;
+               initialColor[2] = 0xdfea00;  
+               break; 
+      }
+#ifdef USE_SERIAL_DEBUG      
+      Serial.print("[Right] load new color: ");
+      Serial.println(colorMode);      
+#endif
+      initColorSet(initialColor);
+      
+    }
+    // check for some of the special keys
+/*    if (c == PS2_ENTER) {
+      Serial.println();
+    } else if (c == PS2_TAB) {
+      Serial.print("[Tab]");
+    } else if (c == PS2_ESC) {
+      Serial.print("[ESC]");
+    } else if (c == PS2_PAGEDOWN) {
+      Serial.print("[PgDn]");
+    } else if (c == PS2_PAGEUP) {
+      Serial.print("[PgUp]");
+    } else if (c == PS2_LEFTARROW) {
+      Serial.print("[Left]");
+    } else if (c == PS2_RIGHTARROW) {
+      Serial.print("[Right]");
+    } else if (c == PS2_UPARROW) {
+      Serial.print("[Up]");
+    } else if (c == PS2_DOWNARROW) {
+      Serial.print("[Down]");
+    } else if (c == PS2_DELETE) {
+      Serial.print("[Del]");
+    } else {
+      
+      // otherwise, just print all normal characters
+      Serial.print(c);
+    }*/
   }
-  // Discharge the pin again by setting it low and output
-  //  It's important to leave the pins low if you want to 
-  //  be able to touch more than 1 sensor at a time - if
-  //  the sensor is left pulled high, when you touch
-  //  two sensors, your body will transfer the charge between
-  //  sensors.
-  *port &= ~(bitmask);
-  *ddr  |= bitmask;
-
-  return cycles;
 }
-
-
-
-#define FLIP_VALUE 8
-
-boolean triggered=false;
-unsigned long lastCheck = 0;
-
-// --------------------------------------------
-//    check input
-// --------------------------------------------
-boolean isFingerConnectedToPin(int pin, int checkIntervall) {
-  
-  //check if the intervall passed, if not return false
-  unsigned long now = millis();
-  if (now - lastCheck < checkIntervall) {
-    return false; 
-  }
-  
-  //intervall passed...
-  lastCheck = now;
-  
-  uint8_t val = readCapacitivePin(pin);
-
-#ifdef USE_SERIAL_DEBUG
-  Serial.print("Value: ");
-  Serial.print(val);
-  Serial.print(" Triggered: ");
-  Serial.println(triggered);
-#endif
-
-  if (val >= FLIP_VALUE && triggered == false) {
-#ifdef USE_SERIAL_DEBUG
-    Serial.println("set flag true");
-#endif
-    triggered = true;
-    return true;
-  } 
-  else if (val < FLIP_VALUE && triggered) {
-    triggered = false;
-  }
-
-  return false;
-} 
-
-
-

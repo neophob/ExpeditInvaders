@@ -6,8 +6,12 @@ void initContent() {
   }
 }
 
+#define MAX_MODE 3
 byte n;
 byte mode = 3;
+
+#define MAX_COLOR_MODE 3
+byte colorMode = 0;
 
 // --------------------------------------------
 //     do some animation 
