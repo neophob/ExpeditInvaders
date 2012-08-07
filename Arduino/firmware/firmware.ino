@@ -145,6 +145,9 @@ void setup() {
   Serial.println("Init keyboard!");
 #endif    
   keyboard.begin(DataPin, IRQpin);
+
+  //load prestored settings  
+  restorePresetStateFromEeprom();
   
   //we-are-ready indicator
   pinMode(ledPin, OUTPUT);  

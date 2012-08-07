@@ -73,9 +73,6 @@ void handleKeyboard() {
   }
 
   if(pressedPgUp && pressedPgUp) {
-#ifdef USE_SERIAL_DEBUG      
-    Serial.print("Save current settings to EEPROM");
-#endif
     saveCurrentStateToEeprom();
   }
 }

@@ -13,6 +13,9 @@ const byte CONST_V = 'V';
 //     store current mode to eeprom
 // --------------------------------------------
 void saveCurrentStateToEeprom() {
+#ifdef USE_SERIAL_DEBUG      
+    Serial.print("Save current settings to EEPROM");
+#endif  
   EEPROM.write(EEPROM_HEADER_09, CONST_I);
   EEPROM.write(EEPROM_HEADER_10, CONST_N);
   EEPROM.write(EEPROM_HEADER_11, CONST_V);
