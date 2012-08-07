@@ -71,6 +71,7 @@ The IKEA Expedit shelf with 40 LED Modules looks like this:
 #include <SPI.h>
 #include <Neophob_LPD6803.h>
 #include <PS2Keyboard.h>
+#include <EEPROM.h>
 
 #define NR_OF_PIXELS 40
 
@@ -164,15 +165,6 @@ void loop() {
   generateContent(); 
 
   handleKeyboard();
-/*unsigned int c =  Color(i,i,i);
-  i++;
-  if (i>255) i=0;
-  for (int i=0; i < strip.numPixels(); i++) {
-        strip.setPixelColor(i, c);
-  }
-  strip.show();
-  delay(20);
-*/
 }
 
 

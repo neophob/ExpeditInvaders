@@ -23,7 +23,7 @@
  Modified by Paul Stoffregen <paul@pjrc.com> June 2010
  */
 
-
+boolean pressedEsc, pressedPgUp;
 
 void handleKeyboard() {
   //key pressed?
@@ -33,7 +33,7 @@ void handleKeyboard() {
 
   // read the next key
   char c = keyboard.read();
-
+  
   switch (c) {
   case PS2_UPARROW:
     mode++;
@@ -53,8 +53,18 @@ void handleKeyboard() {
     }
     loadColorSet(colorMode);
     break;
+  
+  case PS2_ESC:
+    pressedEsc = true;
+    break;
+    
+  case PS2_PAGEUP:
+    pressedPgUp = true;
+    break;
     
   default:
+    pressedEsc = false;
+    pressedPgUp = false;
 #ifdef USE_SERIAL_DEBUG      
     Serial.print("Hex Keycode: ");
     Serial.println(c, HEX);
@@ -62,7 +72,12 @@ void handleKeyboard() {
     break;
   }
 
-
+  if(pressedPgUp && pressedPgUp) {
+#ifdef USE_SERIAL_DEBUG      
+    Serial.print("Save current settings to EEPROM");
+#endif
+    saveCurrentStateToEeprom();
+  }
 }
 
 
