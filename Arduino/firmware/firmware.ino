@@ -136,24 +136,20 @@ void setup() {
 #ifdef USE_SERIAL_DEBUG
   Serial.println("Init ColorSet");
 #endif  
-//  unsigned long initialColor[3] = { 0xff0000, 0x00ff00, 0x0000ff }; //RGB
-//  unsigned long initialColor[3] = { 0xdc323c, 0xf0cb58, 0x3c825e }; //Rasta
-  unsigned long initialColor[3] = { 0xd3517d, 0x15a0bf, 0xffc062 }; //CGA  
-//  unsigned long initialColor[3] = { 0x008c53, 0x2e00e4, 0xdfea00 }; //Brazil  
-  
+  unsigned long initialColor[3] = { 0xff0000, 0x00ff00, 0x0000ff }; //RGB  
   initColorSet(initialColor);
   initContent();
+
+#ifdef USE_SERIAL_DEBUG
+  Serial.println("Init keyboard!");
+#endif    
+  keyboard.begin(DataPin, IRQpin);
   
   //we-are-ready indicator
   pinMode(ledPin, OUTPUT);  
   synchronousBlink();
   delay(50);
   synchronousBlink();
-
-#ifdef USE_SERIAL_DEBUG
-  Serial.println("Init keyboard!");
-#endif    
-  keyboard.begin(DataPin, IRQpin);
 
 #ifdef USE_SERIAL_DEBUG
   Serial.println("Setup done!");
