@@ -38,18 +38,21 @@ void restorePresetStateFromEeprom() {
   //verify
   if (header1 == CONST_I && header2 == CONST_N && header3 == CONST_V) {
 #ifdef USE_SERIAL_DEBUG      
-    Serial.println("Use EEPROM settings");
+    Serial.print("Use EEPROM settings, mode:");
 #endif
     
     //load work mode
     mode = EEPROM.read(EEPROM_POS_MODE);
-    if (mode>=MAX_MODE) {
+    if (mode>MAX_MODE) {
       mode=0;
     }
+#ifdef USE_SERIAL_DEBUG      
+    Serial.println(mode);
+#endif
     
     //load color mode
     colorMode = EEPROM.read(EEPROM_POS_COLORMODE);
-    if (colorMode>=MAX_COLOR_MODE) {
+    if (colorMode>MAX_COLOR_MODE) {
       colorMode=0;
     }
     loadColorSet(colorMode);

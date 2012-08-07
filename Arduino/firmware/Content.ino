@@ -6,7 +6,7 @@ void initContent() {
   }
 }
 
-#define MAX_MODE 3
+#define MAX_MODE 5
 byte n;
 byte mode = 3;
 
@@ -15,7 +15,7 @@ byte mode = 3;
 //     do some animation 
 // --------------------------------------------
 void generateContent() {
-//  delay(20);
+  delay(256);
 
   for (int i=0; i < BUFFER_SIZE; i++) {
     switch (mode) {
@@ -30,6 +30,12 @@ void generateContent() {
       break;     
     case 3: //checkboard
       buffer[i] = n+(128*(i%2));
+      break;     
+    case 4: //weird
+      buffer[i] = n+(32*(i%4));
+      break;     
+    case 5: //
+      buffer[i] = n+(16*(i%8));
       break;     
     }
 
