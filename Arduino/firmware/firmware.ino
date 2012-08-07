@@ -94,10 +94,12 @@ const int IRQpin =  2;
 
 #define LEFT	5
 #define RIGHT	6
-//dummy keymap
+
+//dummy keymap, we're interessted if someone pressed the keyboard
+//on the left side or on the right side
 const PROGMEM PS2Keymap_t PS2Keymap_Dummy = {
   // without shift
-	{0, LEFT, 0, LEFT, LEFT, LEFT, LEFT, PS2_F12,
+	{0, LEFT, 0, LEFT, LEFT, LEFT, LEFT, LEFT,
 	0, LEFT, LEFT, LEFT, LEFT, LEFT, LEFT, 0,
 	0, 0 /*Lalt*/, 0 /*Lshift*/, 0, 0 /*Lctrl*/, LEFT, LEFT, 0,
 	0, 0, LEFT, LEFT, LEFT, LEFT, LEFT, 0,
@@ -108,18 +110,18 @@ const PROGMEM PS2Keymap_t PS2Keymap_Dummy = {
 	0, LEFT, LEFT, LEFT, LEFT, LEFT, LEFT, 0,
 	0, LEFT, LEFT, LEFT, LEFT, LEFT, LEFT, 0,
 	0, 0, LEFT, 0, LEFT, LEFT, 0, 0,
-	0 /*CapsLock*/, 0 /*Rshift*/, LEFT /*Enter*/, LEFT, 0, '\\', 0, 0,
+	0 /*CapsLock*/, 0 /*Rshift*/, LEFT /*Enter*/, LEFT, 0, LEFT, 0, 0,
 	0, 0, 0, 0, 0, 0, LEFT, 0,
 	0, RIGHT, 0, RIGHT, RIGHT, 0, 0, 0,
 	RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, PS2_ESC, RIGHT /*NumLock*/,
-	PS2_F11, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, 0,
-	0, 0, 0, PS2_F7 }
+	LEFT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, 0,
+	0, 0, 0, LEFT }
 };
 
 // --------------------------------------------
 //     led flash
 // --------------------------------------------
-void synchronousBlink() {
+void ledFlash() {
   digitalWrite(ledPin, HIGH);
   delay(20);
   digitalWrite(ledPin, LOW);  
@@ -174,9 +176,9 @@ void setup() {
   
   //we-are-ready indicator
   pinMode(ledPin, OUTPUT);  
-  synchronousBlink();
+  ledFlash();
   delay(50);
-  synchronousBlink();
+  ledFlash();
 
 #ifdef USE_SERIAL_DEBUG
   Serial.println("Setup done!");

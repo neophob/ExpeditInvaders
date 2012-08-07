@@ -23,7 +23,9 @@
  Modified by Paul Stoffregen <paul@pjrc.com> June 2010
  */
 
+//wait 900ms to update mode/colorMode
 #define WAIT_TIME_KBD 900
+
 boolean pressedEsc, pressedRight;
 unsigned long lastKeyHandlerAction;
 // --------------------------------------------
@@ -102,13 +104,12 @@ void handleKeyboard() {
   lastKeyHandlerAction = millis();
 }
 
-
+// --------------------------------------------
+//     check if a keypress should be ignored
+// --------------------------------------------
 boolean ignoreCurrentKeyPress() {
   unsigned long time = millis()-lastKeyHandlerAction;
-
-    Serial.println(time);
-
-  return (millis()-lastKeyHandlerAction) > WAIT_TIME_KBD;
+  return time < WAIT_TIME_KBD;
 }
 
 

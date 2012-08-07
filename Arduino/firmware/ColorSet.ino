@@ -4,6 +4,9 @@ unsigned long colors[3];
 //get array size
 #define nrOfColorsInArray (sizeof(colors)/sizeof(unsigned long)) 
 
+#define MAX_COLOR_MODE 10
+byte colorMode = 0;
+
 byte boarderCount;
 byte arrayCount;
 
@@ -128,6 +131,36 @@ void loadColorSet(byte colorMode) {
     initialColor[0] = 0x008c53;  //Brazil
     initialColor[1] = 0x2e00e4;
     initialColor[2] = 0xdfea00;  
+    break; 
+  case 4:
+    initialColor[0] = 0x588F27;  //Fizz
+    initialColor[1] = 0x04BFBF;
+    initialColor[2] = 0xF7E967;  
+    break; 
+  case 5:
+    initialColor[0] = 0x9f456b;  //Kitty
+    initialColor[1] = 0x4f7a9a;
+    initialColor[2] = 0xe6c84c;  
+    break; 
+  case 6:
+    initialColor[0] = 0x323228;  //Neon
+    initialColor[1] = 0x717155;
+    initialColor[2] = 0xb4dc00;  
+    break; 
+  case 7:
+    initialColor[0] = 0x000000;  //Lantern
+    initialColor[1] = 0x0d9a0d;
+    initialColor[2] = 0xffffff;  
+    break; 
+  case 8:
+    initialColor[0] = 0x0000ff;  //Lemming
+    initialColor[1] = 0x00ff00;
+    initialColor[2] = 0xffffff;  
+    break; 
+  case 9:
+    initialColor[0] = 0x3e3e3e;  //LeBron
+    initialColor[1] = 0xd4b600;
+    initialColor[2] = 0xffffff;  
     break; 
   }
 #ifdef USE_SERIAL_DEBUG      

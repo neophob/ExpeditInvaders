@@ -35,6 +35,7 @@ void restorePresetStateFromEeprom() {
     Serial.println("Check EEPROM for saved values");
 #endif
 
+  //verify
   if (header1 == CONST_I && header2 == CONST_N && header3 == CONST_V) {
 #ifdef USE_SERIAL_DEBUG      
     Serial.println("Use EEPROM settings");
