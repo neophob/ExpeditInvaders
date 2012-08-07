@@ -92,6 +92,29 @@ PS2Keyboard keyboard;
 const int DataPin = 3;
 const int IRQpin =  2;
 
+#define LEFT	5
+#define RIGHT	6
+//dummy keymap
+const PROGMEM PS2Keymap_t PS2Keymap_Dummy = {
+  // without shift
+	{0, LEFT, 0, LEFT, LEFT, LEFT, LEFT, PS2_F12,
+	0, LEFT, LEFT, LEFT, LEFT, LEFT, LEFT, 0,
+	0, 0 /*Lalt*/, 0 /*Lshift*/, 0, 0 /*Lctrl*/, LEFT, LEFT, 0,
+	0, 0, LEFT, LEFT, LEFT, LEFT, LEFT, 0,
+	0, LEFT, LEFT, LEFT, LEFT, LEFT, LEFT, 0,
+	0, LEFT, LEFT, LEFT, LEFT, LEFT, LEFT, 0,
+	0, LEFT, LEFT, LEFT, LEFT, LEFT, LEFT, 0,
+	0, 0, LEFT, LEFT, LEFT, LEFT, LEFT, 0,
+	0, LEFT, LEFT, LEFT, LEFT, LEFT, LEFT, 0,
+	0, LEFT, LEFT, LEFT, LEFT, LEFT, LEFT, 0,
+	0, 0, LEFT, 0, LEFT, LEFT, 0, 0,
+	0 /*CapsLock*/, 0 /*Rshift*/, LEFT /*Enter*/, LEFT, 0, '\\', 0, 0,
+	0, 0, 0, 0, 0, 0, LEFT, 0,
+	0, RIGHT, 0, RIGHT, RIGHT, 0, 0, 0,
+	RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, PS2_ESC, RIGHT /*NumLock*/,
+	PS2_F11, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, 0,
+	0, 0, 0, PS2_F7 }
+};
 
 // --------------------------------------------
 //     led flash
@@ -144,7 +167,7 @@ void setup() {
 #ifdef USE_SERIAL_DEBUG
   Serial.println("Init keyboard!");
 #endif    
-  keyboard.begin(DataPin, IRQpin);
+  keyboard.begin(DataPin, IRQpin, PS2Keymap_Dummy);
 
   //load prestored settings  
   restorePresetStateFromEeprom();

@@ -23,11 +23,17 @@
  Modified by Paul Stoffregen <paul@pjrc.com> June 2010
  */
 
-boolean pressedEsc, pressedPgUp;
-
+#define WAIT_TIME_KBD 900
+boolean pressedEsc, pressedRight;
+unsigned long lastKeyHandlerAction;
+// --------------------------------------------
+//     handle keypresses
+//     press ESC + RightArrow to store current setting to eeporom
+// --------------------------------------------
 void handleKeyboard() {
   //key pressed?
-  if (!keyboard.available()) {
+  if (!keyboard.available()) {    
+    pressedRight = false;    
     return; 
   }
 
@@ -35,36 +41,53 @@ void handleKeyboard() {
   char c = keyboard.read();
   
   switch (c) {
-  case PS2_UPARROW:
+  case LEFT:
+    if (ignoreCurrentKeyPress()) {
+      return;
+    }
+  
     mode++;
     if (mode > MAX_MODE) {
       mode = 0; 
     }
 #ifdef USE_SERIAL_DEBUG      
-    Serial.print("[Up], mode: ");
+    Serial.print("[LEFT], mode: ");
     Serial.println(mode);
 #endif
     break;
-    
-  case PS2_RIGHTARROW:
+
+  case PS2_LEFTARROW:    
+  case PS2_PAGEDOWN:
+  case PS2_UPARROW:
+  case PS2_PAGEUP:
+  case PS2_DOWNARROW:
+  case PS2_DELETE:
+  case RIGHT:
+    if (ignoreCurrentKeyPress()) {
+      return;
+    }
     colorMode++;
     if (colorMode > MAX_COLOR_MODE) {
       colorMode = 0;
     }
     loadColorSet(colorMode);
+#ifdef USE_SERIAL_DEBUG      
+    Serial.print("[RIGHT], colorMode: ");
+    Serial.println(colorMode);
+#endif
     break;
   
   case PS2_ESC:
     pressedEsc = true;
     break;
     
-  case PS2_PAGEUP:
-    pressedPgUp = true;
+  case PS2_RIGHTARROW:
+    pressedRight = true;
     break;
     
   default:
     pressedEsc = false;
-    pressedPgUp = false;
+    pressedRight = false;
 #ifdef USE_SERIAL_DEBUG      
     Serial.print("Hex Keycode: ");
     Serial.println(c, HEX);
@@ -72,9 +95,22 @@ void handleKeyboard() {
     break;
   }
 
-  if(pressedPgUp && pressedPgUp) {
+  if (pressedEsc==true && pressedRight==true) {
     saveCurrentStateToEeprom();
   }
+  
+  lastKeyHandlerAction = millis();
 }
+
+
+boolean ignoreCurrentKeyPress() {
+  unsigned long time = millis()-lastKeyHandlerAction;
+
+    Serial.println(time);
+
+  return (millis()-lastKeyHandlerAction) > WAIT_TIME_KBD;
+}
+
+
 
 

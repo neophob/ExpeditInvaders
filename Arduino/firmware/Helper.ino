@@ -14,7 +14,7 @@ const byte CONST_V = 'V';
 // --------------------------------------------
 void saveCurrentStateToEeprom() {
 #ifdef USE_SERIAL_DEBUG      
-    Serial.print("Save current settings to EEPROM");
+    Serial.println("Save current settings to EEPROM");
 #endif  
   EEPROM.write(EEPROM_HEADER_09, CONST_I);
   EEPROM.write(EEPROM_HEADER_10, CONST_N);
@@ -32,12 +32,12 @@ void restorePresetStateFromEeprom() {
   byte header2 = EEPROM.read(EEPROM_HEADER_10);
   byte header3 = EEPROM.read(EEPROM_HEADER_11);
 #ifdef USE_SERIAL_DEBUG      
-    Serial.print("Check EEPROM for saved values");
+    Serial.println("Check EEPROM for saved values");
 #endif
 
   if (header1 == CONST_I && header2 == CONST_N && header3 == CONST_V) {
 #ifdef USE_SERIAL_DEBUG      
-    Serial.print("Use EEPROM settings");
+    Serial.println("Use EEPROM settings");
 #endif
     
     //load work mode
