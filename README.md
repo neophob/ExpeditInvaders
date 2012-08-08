@@ -32,6 +32,7 @@ Hint: This connection setup is for Arduino Duemillanove/Uno..
 
 ## Module Placement
 The IKEA Expedit shelf with 40 LED Modules looks like this (back view):
+
        +----------+----------+----------+----------+
        |          |          |          |          |
        |          |          |          |          |
@@ -53,4 +54,5 @@ The IKEA Expedit shelf with 40 LED Modules looks like this (back view):
        |          |          |          |          | Arduino      
        |          |          |          |          |
        +----------+----------+----------+----------+
+       
 Module 1,14,15,16 will be blank
