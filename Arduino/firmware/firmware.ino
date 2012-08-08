@@ -59,11 +59,14 @@ The IKEA Expedit shelf with 40 LED Modules looks like this:
  If you need some Modules and want to support my work, check out http://pixelinvaders.ch/
  
  
- TODO:
- -more modes
- -switch display
- -switch colorset
- -save setting to eeprom after some time...
+PS Mapping
+----------
+Red: 5v
+Black GND
+White: Pin3
+Brown: Pin2
+Warning, this will be different on you ps2 device! check http://www.pjrc.com/teensy/td_libs_PS2Keyboard.html
+
  */
 
 //the lpd6803 library needs the timer1 library
@@ -189,6 +192,8 @@ void setup() {
 //      main loop
 // --------------------------------------------
 void loop() {
+  delay(1);
+  
   //create 8bit buffer  
   generateContent(); 
 

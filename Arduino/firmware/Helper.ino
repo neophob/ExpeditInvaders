@@ -59,3 +59,13 @@ void restorePresetStateFromEeprom() {
 
   }
 }
+
+
+// --------------------------------------------
+//     check if a keypress should be ignored
+// --------------------------------------------
+boolean timeOutNotReached(unsigned long lastTime, int timeout) {
+  unsigned long time = millis()-lastTime;
+  return time < timeout;
+}
+

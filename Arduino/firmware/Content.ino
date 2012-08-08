@@ -1,3 +1,6 @@
+#define ANIMATION_DELAY 512
+#define MAX_MODE 5
+
 byte bufferRnd[BUFFER_SIZE];
 
 void initContent() {
@@ -6,16 +9,17 @@ void initContent() {
   }
 }
 
-#define MAX_MODE 5
 byte n;
 byte mode = 3;
 
-
+unsigned long lastDrawTimestamp;
 // --------------------------------------------
 //     do some animation 
 // --------------------------------------------
 void generateContent() {
-  delay(256);
+  if (timeOutNotReached(lastDrawTimestamp, ANIMATION_DELAY)) {
+    return;
+  }
 
   for (int i=0; i < BUFFER_SIZE; i++) {
     switch (mode) {
@@ -45,7 +49,7 @@ void generateContent() {
   //convert it to colorized 15bit buffer and blank some pixels
   applyColorSet();
 
-
+  lastDrawTimestamp = millis();
 }
 
 

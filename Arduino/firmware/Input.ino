@@ -23,8 +23,8 @@
  Modified by Paul Stoffregen <paul@pjrc.com> June 2010
  */
 
-//wait 900ms to update mode/colorMode
-#define WAIT_TIME_KBD 900
+//wait xms to update mode/colorMode
+#define WAIT_TIME_KBD 300
 
 boolean pressedEsc, pressedRight;
 unsigned long lastKeyHandlerAction;
@@ -44,7 +44,7 @@ void handleKeyboard() {
   
   switch (c) {
   case LEFT:
-    if (ignoreCurrentKeyPress()) {
+    if (timeOutNotReached(lastKeyHandlerAction, WAIT_TIME_KBD)) {
       return;
     }
   
@@ -65,7 +65,7 @@ void handleKeyboard() {
   case PS2_DOWNARROW:
   case PS2_DELETE:
   case RIGHT:
-    if (ignoreCurrentKeyPress()) {
+    if (timeOutNotReached(lastKeyHandlerAction, WAIT_TIME_KBD)) {
       return;
     }
     colorMode++;
@@ -102,15 +102,11 @@ void handleKeyboard() {
   }
   
   lastKeyHandlerAction = millis();
+
+  //trigger a redraw
+  lastDrawTimestamp = 0;
 }
 
-// --------------------------------------------
-//     check if a keypress should be ignored
-// --------------------------------------------
-boolean ignoreCurrentKeyPress() {
-  unsigned long time = millis()-lastKeyHandlerAction;
-  return time < WAIT_TIME_KBD;
-}
 
 
 
