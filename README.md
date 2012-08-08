@@ -2,7 +2,7 @@
 
 Check out the **Blog** entry about ExpeditInvaders: http://neophob.com/2012/08/expeditinvaders-the-spiced-up-ikea-shelf/
 
-If you like ExpeditInvaders and want to support me, check out my **shop** at: http://pixelinvaders.ch/?page_id=390
+If you like ExpeditInvaders and want to support me, check out my **Shop** at: http://pixelinvaders.ch/?page_id=390
 
 # HowTo
 
@@ -12,6 +12,14 @@ If you like ExpeditInvaders and want to support me, check out my **shop** at: ht
 * 40 LED Modules
 * 12V PSU (for example an old ATX PSU)
 * PS2 Keyboard
+
+## Needed Arduino Libraries
+* EEPROM (default library)
+* SPI (default library)
+* PS2 Keyboard (http://www.pjrc.com/teensy/td_libs_PS2Keyboard.html)
+* LPD6803 (https://github.com/neophob/neophob_lpd6803spi)
+* TimerOne (http://arduino.cc/playground/Code/Timer1)
+
 
 ## Module Placement
     The IKEA Expedit shelf with 40 LED Modules looks like this:
