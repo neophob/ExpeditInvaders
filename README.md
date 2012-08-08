@@ -7,6 +7,7 @@ Check out the **Blog** entry about ExpeditInvaders: http://neophob.com/2012/08/e
 If you like ExpeditInvaders and want to support me, check out my **Shop** at: http://pixelinvaders.ch/?page_id=390
 
 # Color Sets
+A color set consists of three colors, which are faded into.
 * RGB
 * Rasta
 * CGA
@@ -19,12 +20,13 @@ If you like ExpeditInvaders and want to support me, check out my **Shop** at: ht
 * LeBron
 
 # Animation Modes
-* ran­dm
-* solid
-* ordered
-* check­board
-* weird
-* weirdtwo
+The animation mode define how the "fields" are filled
+* Random
+* Solid
+* Ordered
+* Check­board
+* Weird
+* Weirdtwo
 
 # HowTo
 
