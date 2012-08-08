@@ -1,8 +1,30 @@
 # ExpeditInvaders
 
+Spice up your Ikea Expedit Shelf with some fancy LED Modules. Use your foot to change animation mode or color mode.
+
 Check out the **Blog** entry about ExpeditInvaders: http://neophob.com/2012/08/expeditinvaders-the-spiced-up-ikea-shelf/
 
 If you like ExpeditInvaders and want to support me, check out my **Shop** at: http://pixelinvaders.ch/?page_id=390
+
+# Color Sets
+* RGB
+* Rasta
+* CGA
+* Brazil
+* Fizz
+* Kitty
+* Neon
+* Lantern
+* Lem­min
+* LeBron
+
+# Animation Modes
+* ran­dm
+* solid
+* ordered
+* check­board
+* weird
+* weirdtwo
 
 # HowTo
 
