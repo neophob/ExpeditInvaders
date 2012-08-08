@@ -20,6 +20,15 @@ If you like ExpeditInvaders and want to support me, check out my **Shop** at: ht
 * LPD6803 (https://github.com/neophob/neophob_lpd6803spi)
 * TimerOne (http://arduino.cc/playground/Code/Timer1)
 
+## Arduino Pin Connections
+Hint: This connection setup is for Arduino Duemillanove/Uno..
+* Pin 13: Led Module Clock
+* Pin 11: Led Module Clock
+* GND: Led Module GND
+* Pin 2: PS2 Data
+* Pin 2: PS2 Clock
+* 5v: PS2 5v
+* GND: PS2 GND
 
 ## Module Placement
     The IKEA Expedit shelf with 40 LED Modules looks like this:
