@@ -6,6 +6,13 @@ If you like ExpeditInvaders and want to support me, check out my **shop** at: ht
 
 # HowTo
 
+## Needed Hardware
+* Ikea Expedit Shelf
+* Arduino board
+* 40 LED Modules
+* 12V PSU (for example an old ATX PSU)
+* PS2 Keyboard
+
 ## Module Placement
     The IKEA Expedit shelf with 40 LED Modules looks like this:
        +----------+----------+----------+----------+
