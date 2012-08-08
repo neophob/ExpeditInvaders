@@ -31,7 +31,7 @@ Hint: This connection setup is for Arduino Duemillanove/Uno..
 * GND: PS2 GND
 
 ## Module Placement
-    The IKEA Expedit shelf with 40 LED Modules looks like this:
+The IKEA Expedit shelf with 40 LED Modules looks like this (back view):
        +----------+----------+----------+----------+
        |          |          |          |          |
        |          |          |          |          |
@@ -53,4 +53,4 @@ Hint: This connection setup is for Arduino Duemillanove/Uno..
        |          |          |          |          | Arduino      
        |          |          |          |          |
        +----------+----------+----------+----------+
-    Module 1,14,15,16 will be blank
+Module 1,14,15,16 will be blank
