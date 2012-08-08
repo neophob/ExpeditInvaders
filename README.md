@@ -1,9 +1,8 @@
 # ExpeditInvaders
 
-Spice up your Ikea Expedit Shelf with some fancy LED Modules. Use your foot to change animation mode or color mode.
+Spice up your Ikea Expedit Shelf with some fancy LED Modules. **Use your foot** to change animation mode or color mode.
 
 Check out the **Blog** entry about ExpeditInvaders: http://neophob.com/2012/08/expeditinvaders-the-spiced-up-ikea-shelf/
-
 If you like ExpeditInvaders and want to support me, check out my **Shop** at: http://pixelinvaders.ch/?page_id=390
 
 # Color Sets
@@ -79,4 +78,4 @@ The IKEA Expedit shelf with 40 LED Modules looks like this (back view):
        |          |          |          |          |
        +----------+----------+----------+----------+
        
-Module 1,14,15,16 will be blank
+Module 1,14,15,16 will be always blank.
