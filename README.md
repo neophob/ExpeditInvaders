@@ -49,7 +49,7 @@ Hint: This connection setup is for Arduino Duemillanove/Uno..
 * Pin 11: Led Module Clock
 * GND: Led Module GND
 * Pin 2: PS2 Data
-* Pin 2: PS2 Clock
+* Pin 3: PS2 Clock
 * 5v: PS2 5v
 * GND: PS2 GND
 
